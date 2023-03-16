@@ -31,4 +31,6 @@ public interface HttpClientFactory {
   HttpClient create(HttpMethod method, URI uri);
 
   void close(HttpClient httpClient);
+  
+  boolean canUseRepeatableHttpBodyEntry();
 }

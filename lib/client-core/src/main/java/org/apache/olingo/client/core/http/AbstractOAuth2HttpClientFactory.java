@@ -114,4 +114,10 @@ public abstract class AbstractOAuth2HttpClientFactory
     wrapped.close(httpClient);
   }
 
+  @Override
+  public boolean canUseRepeatableHttpBodyEntry() {
+    HttpClientFactory wrappedFactory = getWrappedHttpClientFactory();
+    return wrappedFactory == null ? false : wrappedFactory.canUseRepeatableHttpBodyEntry();
+  }
+
 }

@@ -48,4 +48,9 @@ public abstract class AbstractHttpClientFactory implements HttpClientFactory {
 
     USER_AGENT = userAgent.toString();
   }
+
+  @Override
+  public boolean canUseRepeatableHttpBodyEntry() {
+    return false;
+  }
 }

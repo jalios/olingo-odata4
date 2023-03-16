@@ -49,4 +49,9 @@ public class BasicAuthHttpClientFactory extends DefaultHttpClientFactory {
 
     return httpclient;
   }
+  
+  @Override
+  public boolean canUseRepeatableHttpBodyEntry() {
+    return true;
+  }
 }

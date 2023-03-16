@@ -26,6 +26,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.olingo.client.api.http.HttpClientFactory;
 import org.apache.olingo.client.api.http.WrappingHttpClientFactory;
 import org.apache.olingo.commons.api.http.HttpMethod;
 
@@ -92,6 +93,12 @@ public class ProxyWrappingHttpClientFactory implements WrappingHttpClientFactory
   @Override
   public void close(final HttpClient httpClient) {
     wrapped.close(httpClient);
+  }
+
+  @Override
+  public boolean canUseRepeatableHttpBodyEntry() {
+    HttpClientFactory wrappedFactory = getWrappedHttpClientFactory();
+    return wrappedFactory == null ? false : wrappedFactory.canUseRepeatableHttpBodyEntry();
   }
 
 }

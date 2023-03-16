@@ -21,4 +21,5 @@ package org.apache.olingo.client.api.http;
 public interface WrappingHttpClientFactory extends HttpClientFactory {
 
   HttpClientFactory getWrappedHttpClientFactory();
+
 }

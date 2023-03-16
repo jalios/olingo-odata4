@@ -47,9 +47,7 @@ import org.apache.http.entity.InputStreamEntity;
 import org.apache.olingo.client.api.ODataClient;
 import org.apache.olingo.client.api.domain.ClientValue;
 import org.apache.olingo.client.api.http.HttpClientFactory;
-import org.apache.olingo.client.api.http.WrappingHttpClientFactory;
 import org.apache.olingo.client.api.uri.SegmentType;
-import org.apache.olingo.client.core.http.BasicAuthHttpClientFactory;
 import org.apache.olingo.commons.api.Constants;
 import org.apache.olingo.commons.api.edm.EdmPrimitiveTypeException;
 import org.apache.olingo.commons.api.edm.geo.Geospatial;
@@ -267,16 +265,7 @@ public final class URIUtils {
   public static boolean shouldUseRepeatableHttpBodyEntry(final ODataClient client) {
     // returns true for authentication request in case of http401 which needs retry so requires being repeatable.
     HttpClientFactory httpclientFactory = client.getConfiguration().getHttpClientFactory();
-    if (httpclientFactory instanceof BasicAuthHttpClientFactory) {
-      return true;
-    } else if (httpclientFactory instanceof WrappingHttpClientFactory) {
-      WrappingHttpClientFactory tmp = (WrappingHttpClientFactory) httpclientFactory;
-      if (tmp.getWrappedHttpClientFactory() instanceof BasicAuthHttpClientFactory) {
-        return true;
-      }
-    }
-
-    return false;
+    return httpclientFactory.canUseRepeatableHttpBodyEntry();
   }
 
   public static HttpEntity buildInputStreamEntity(final ODataClient client, final InputStream input) {
