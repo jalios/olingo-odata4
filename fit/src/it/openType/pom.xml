@@ -25,7 +25,7 @@
 
   <artifactId>pojogen-maven-plugin-v4test</artifactId>
   <groupId>org.apache.olingo</groupId>
-  <version>@project.version@</version>
+  <version>4.9.0-JALIOS-ntlm-batch</version>
   <name>${project.artifactId}</name>
   <description>A simple IT verifying the basic use case of pojogen-man-plugin.</description>
 

@@ -25,7 +25,7 @@
 	<groupId>my.group.id</groupId>
 	<artifactId>DemoService-QueryOptions-F</artifactId>
 	<packaging>war</packaging>
-	<version>4.9.0</version>
+	<version>4.9.0-JALIOS-ntlm-batch</version>
 
 	<name>${project.artifactId} Webapp</name>
 
