@@ -35,7 +35,7 @@
   <parent>
     <groupId>org.apache</groupId>
     <artifactId>apache</artifactId>
-    <version>24</version>
+    <version>29</version>
   </parent>
 
   <licenses>
@@ -350,7 +350,6 @@
       </plugin>
       <plugin>
         <artifactId>maven-remote-resources-plugin</artifactId>
-        <version>1.5</version>
         <dependencies>
             <dependency>
                 <groupId>org.apache.maven.shared</groupId>
