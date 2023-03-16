@@ -130,7 +130,7 @@ public class BatchRequestParserTest {
 
   @Test
   public void imageInContent() throws Exception {
-    final String content = IOUtils.toString(readFile("/batchWithContent.batch"));
+    final String content = IOUtils.toString(readFile("batchWithContent.batch"));
     final String batch = "--" + BOUNDARY + CRLF
         + GET_REQUEST
         + "--" + BOUNDARY + CRLF
@@ -1093,7 +1093,7 @@ public class BatchRequestParserTest {
 
   @Test
   public void largeBatch() throws Exception {
-    parse(readFile("/batchLarge.batch"), true);
+    parse(readFile("batchLarge.batch"), true);
   }
 
   @Test
@@ -1178,7 +1178,7 @@ public class BatchRequestParserTest {
   }
 
   private InputStream readFile(final String fileName) throws IOException {
-    final InputStream in = ClassLoader.class.getResourceAsStream(fileName);
+    final InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
     if (in == null) {
       throw new IOException("Requested file '" + fileName + "' was not found.");
     }
