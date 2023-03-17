@@ -31,8 +31,6 @@ import org.apache.olingo.client.api.serialization.ODataDeserializerException;
 import org.apache.olingo.commons.api.ex.ODataError;
 import org.apache.olingo.commons.api.ex.ODataRuntimeException;
 import org.apache.olingo.commons.api.format.ContentType;
-import org.apache.olingo.client.api.serialization.ODataDeserializerException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -94,7 +92,7 @@ public final class ODataErrorResponseChecker {
       if (statusLine.getStatusCode() >= 500 && error!= null && 
           (error.getDetails() == null || error.getDetails().isEmpty()) && 
           (error.getInnerError() == null || error.getInnerError().size() == 0)) {
-        result = new ODataServerErrorException(statusLine);
+        result = new ODataServerErrorException(statusLine, error.getMessage());
       } else {
         result = new ODataClientErrorException(statusLine, error);
       }

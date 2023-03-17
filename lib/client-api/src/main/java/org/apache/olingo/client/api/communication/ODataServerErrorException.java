@@ -26,14 +26,33 @@ import org.apache.olingo.commons.api.ex.ODataRuntimeException;
  */
 public class ODataServerErrorException extends ODataRuntimeException {
 
-  private static final long serialVersionUID = -6423014532618680135L;
+    private static final long serialVersionUID = -6423014532618680136L;
+    private String bodyContent = null;
 
-  /**
-   * Constructor.
-   *
-   * @param statusLine request status info.
-   */
-  public ODataServerErrorException(final StatusLine statusLine) {
-    super(statusLine.toString());
-  }
+    /**
+     * Constructor.
+     *
+     * @param statusLine request status info.
+     */
+    public ODataServerErrorException(final StatusLine statusLine) {
+	super(statusLine.toString());
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param statusLine request status info.
+     */
+    public ODataServerErrorException(final StatusLine statusLine, String bodyContent) {
+	super(statusLine.toString());
+	this.bodyContent = bodyContent;
+    }
+
+    public String getBodyContent() {
+	return bodyContent;
+    }
+
+    public void setBodyContent(String bodyContent) {
+	this.bodyContent = bodyContent;
+    }
 }
