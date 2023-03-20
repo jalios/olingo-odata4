@@ -31,7 +31,7 @@
   <parent>
     <groupId>org.apache.olingo</groupId>
     <artifactId>odata-parent</artifactId>
-    <version>4.9.0-JALIOS-patch</version>
+    <version>4.9.0-JALIOS-1</version>
     <relativePath>..</relativePath>
   </parent>
 
