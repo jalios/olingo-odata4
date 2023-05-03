@@ -25,7 +25,7 @@
 
   <groupId>org.apache.olingo</groupId>
   <artifactId>odata-parent</artifactId>
-  <version>4.9.0-JALIOS-1</version>
+  <version>4.9.0-JALIOS-2</version>
   <packaging>pom</packaging>
 
   <name>Olingo-OData</name>
@@ -113,7 +113,7 @@
     <!-- Project build settings -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.build.source>1.8</project.build.source>
-    <project.build.outputTimestamp>2023-03-20T09:06:20Z</project.build.outputTimestamp>
+    <project.build.outputTimestamp>2023-05-03T09:07:23Z</project.build.outputTimestamp>
     <olingo.deploy.skip>true</olingo.deploy.skip>
 
     <!-- Setting needed for Java 8 release builds -->
