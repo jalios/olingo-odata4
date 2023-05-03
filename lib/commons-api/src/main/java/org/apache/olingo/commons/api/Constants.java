@@ -213,6 +213,8 @@ public interface Constants {
   String JSON_DELTA_LINK = "@odata.deltaLink";
 
   String JSON_ERROR = "error";
+  
+  String JSON_ODATA_ERROR = "odata.error";
 
   String JSON_NULL = "odata.null";
 

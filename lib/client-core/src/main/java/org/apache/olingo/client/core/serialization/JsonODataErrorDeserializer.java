@@ -34,54 +34,57 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class JsonODataErrorDeserializer extends JsonDeserializer {
 
-  public JsonODataErrorDeserializer(final boolean serverMode) {
-    super(serverMode);
-  }
-
-  protected ODataError doDeserialize(final JsonParser parser) throws IOException {
-
-    final ODataError error = new ODataError();
-
-    final ObjectNode tree = parser.getCodec().readTree(parser);
-    if (tree.has(Constants.JSON_ERROR)) {
-      final JsonNode errorNode = tree.get(Constants.JSON_ERROR);
-
-      if (errorNode.has(Constants.ERROR_CODE)) {
-        error.setCode(errorNode.get(Constants.ERROR_CODE).textValue());
-      }
-      if (errorNode.has(Constants.ERROR_MESSAGE)) {
-        final JsonNode message = errorNode.get(Constants.ERROR_MESSAGE);
-        if (message.isValueNode()) {
-          error.setMessage(message.textValue());
-        } else if (message.isObject()) {
-          error.setMessage(message.get(Constants.VALUE).asText());
-        }
-      }
-      if (errorNode.has(Constants.ERROR_TARGET)) {
-        error.setTarget(errorNode.get(Constants.ERROR_TARGET).textValue());
-      }
-      if (errorNode.hasNonNull(Constants.ERROR_DETAILS)) {
-        List<ODataErrorDetail> details = new ArrayList<>();
-        JsonODataErrorDetailDeserializer detailDeserializer = new JsonODataErrorDetailDeserializer(serverMode);
-        for (JsonNode jsonNode : errorNode.get(Constants.ERROR_DETAILS)) {
-          details.add(detailDeserializer.doDeserialize(jsonNode.traverse(parser.getCodec()))
-              .getPayload());
-        }
-
-        error.setDetails(details);
-      }
-      if (errorNode.hasNonNull(Constants.ERROR_INNERERROR)) {
-        HashMap<String, String> innerErrorMap = new HashMap<>();
-        final JsonNode innerError = errorNode.get(Constants.ERROR_INNERERROR);
-        for (final Iterator<String> itor = innerError.fieldNames(); itor.hasNext();) {
-          final String keyTmp = itor.next();
-          final String val = innerError.get(keyTmp).toString();
-          innerErrorMap.put(keyTmp, val);
-        }
-        error.setInnerError(innerErrorMap);
-      }
+    public JsonODataErrorDeserializer(final boolean serverMode) {
+	super(serverMode);
     }
 
-    return error;
-  }
+    protected ODataError doDeserialize(final JsonParser parser) throws IOException {
+
+	final ODataError error = new ODataError();
+
+	final ObjectNode tree = parser.getCodec().readTree(parser);
+	JsonNode errorNode = null;
+	if (tree.has(Constants.JSON_ERROR)) {
+	    errorNode = tree.get(Constants.JSON_ERROR);
+	} else if (tree.has(Constants.JSON_ERROR)) {
+	    errorNode = tree.get(Constants.JSON_ODATA_ERROR);
+	}
+	if (errorNode != null) {
+	    if (errorNode.has(Constants.ERROR_CODE)) {
+		error.setCode(errorNode.get(Constants.ERROR_CODE).textValue());
+	    }
+	    if (errorNode.has(Constants.ERROR_MESSAGE)) {
+		final JsonNode message = errorNode.get(Constants.ERROR_MESSAGE);
+		if (message.isValueNode()) {
+		    error.setMessage(message.textValue());
+		} else if (message.isObject()) {
+		    error.setMessage(message.get(Constants.VALUE).asText());
+		}
+	    }
+	    if (errorNode.has(Constants.ERROR_TARGET)) {
+		error.setTarget(errorNode.get(Constants.ERROR_TARGET).textValue());
+	    }
+	    if (errorNode.hasNonNull(Constants.ERROR_DETAILS)) {
+		List<ODataErrorDetail> details = new ArrayList<>();
+		JsonODataErrorDetailDeserializer detailDeserializer = new JsonODataErrorDetailDeserializer(serverMode);
+		for (JsonNode jsonNode : errorNode.get(Constants.ERROR_DETAILS)) {
+		    details.add(detailDeserializer.doDeserialize(jsonNode.traverse(parser.getCodec())).getPayload());
+		}
+
+		error.setDetails(details);
+	    }
+	    if (errorNode.hasNonNull(Constants.ERROR_INNERERROR)) {
+		HashMap<String, String> innerErrorMap = new HashMap<>();
+		final JsonNode innerError = errorNode.get(Constants.ERROR_INNERERROR);
+		for (final Iterator<String> itor = innerError.fieldNames(); itor.hasNext();) {
+		    final String keyTmp = itor.next();
+		    final String val = innerError.get(keyTmp).toString();
+		    innerErrorMap.put(keyTmp, val);
+		}
+		error.setInnerError(innerErrorMap);
+	    }
+	}
+
+	return error;
+    }
 }
